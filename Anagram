@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+public class Solution {
+    public static int numberNeeded(String first, String second) {
+        /*
+        Convert strings to char array
+        Log how many of each letter in each
+        Compare the counts of each letter; discard the larger count
+        --- add the smaller counts == total
+        return: count of both strings - total
+        */
+        String a = first;
+        String b = second;
+        char[] alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        char[] alpha_a = new char[26];
+        char[] alpha_b = new char[26];
+        char[] arr_a = a.toCharArray();
+        char[] arr_b = b.toCharArray();
+        int count = 0;
+        
+        for(int i = 0; i<arr_a.length; i++)
+        {
+            for(int j = 0; j<alpha.length; j++){
+               if(arr_a[i] == alpha[j]){
+                    alpha_a[j]++;
+                } 
+            }
+            
+        }
+        for(int i = 0; i<arr_b.length; i++)
+        {
+            for(int j = 0; j<alpha.length; j++){
+               if(arr_b[i] == alpha[j]){
+                    alpha_b[j]++;
+                } 
+            }
+            
+        }
+        
+        for(int k = 0; k<26; k++)
+        {
+            if(alpha_a[k] > 0 && alpha_b[k] > 0){
+                if(alpha_a[k]>alpha_b[k]){
+                    count = count + alpha_b[k];
+                }else{
+                    count = count + alpha_a[k];
+                }
+            }
+        }
+        
+        return (arr_a.length + arr_b.length) - 2*count;
+      
+    }
+  
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String a = in.next();
+        String b = in.next();
+        System.out.println(numberNeeded(a, b));
+       
+    }
+}
